@@ -6,14 +6,20 @@
 #         self.right = right
 
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         
-     def valid(node, mins, maxs):
-            if not node:
-                return True
-            if not (mins < node.val < maxs):
-                return False
+        stack = []
+        curr= root
 
-            return valid(node.left, mins, node.val) and valid(node.right, node.val, maxs)
-            
-     return valid(root, float("-inf"), float("inf"))
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            k -= 1
+            if k == 0:
+                return curr.val
+            curr = curr.right
+        
+
+        
